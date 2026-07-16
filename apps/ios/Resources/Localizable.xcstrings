@@ -31281,6 +31281,142 @@
         }
       }
     },
+    "Collapse plan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collapse plan"
+          }
+        },
+        "zh-CN": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "ja-JP": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Collapse plan"
+          }
+        }
+      }
+    },
     "Command": {
       "localizations": {
         "en": {
@@ -61877,6 +62013,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expandera och granska Gateway-varningen innan du godkänner exakt den här versionen."
+          }
+        }
+      }
+    },
+    "Expand plan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expand plan"
+          }
+        },
+        "zh-CN": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "zh-TW": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "ja-JP": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Expand plan"
           }
         }
       }
