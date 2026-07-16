@@ -2630,6 +2630,7 @@ export const zh_CN: TranslationMap = {
     columns: {
       resolved: "处理时间",
       kind: "类型",
+      request: "请求",
       decision: "决定",
       reason: "终端原因",
       source: "来源代理 / 会话",

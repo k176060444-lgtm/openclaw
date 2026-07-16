@@ -2693,6 +2693,7 @@ export const ja_JP: TranslationMap = {
     columns: {
       resolved: "解決日時",
       kind: "種類",
+      request: "リクエスト",
       decision: "決定",
       reason: "ターミナルでの理由",
       source: "送信元エージェント / セッション",

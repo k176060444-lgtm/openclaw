@@ -75,6 +75,7 @@ describe("ApprovalsPage", () => {
     expect(request).toHaveBeenNthCalledWith(1, "approval.history", { limit: 50 });
     expect(page.querySelectorAll(".approval-history-table tbody tr")).toHaveLength(1);
     expect(page.querySelector(".approval-history-table")?.textContent).toContain("agent:main:test");
+    expect(page.querySelector(".approval-history-table")?.textContent).toContain("echo first");
     expect(page.textContent).toContain("rolling 30-day window");
 
     const loadMore = [...page.querySelectorAll("button")].find((button) =>
@@ -97,7 +98,7 @@ describe("ApprovalsPage", () => {
     await settle(page);
 
     const body = page.querySelector(".approval-history-table tbody")?.textContent ?? "";
-    expect(body).not.toContain("No terminal approvals");
+    expect(body).not.toContain("No resolved approvals");
   });
 
   it("shows the empty message only after a successful zero-row load", async () => {
@@ -107,6 +108,6 @@ describe("ApprovalsPage", () => {
     await settle(page);
 
     const body = page.querySelector(".approval-history-table tbody")?.textContent ?? "";
-    expect(body).toContain("No terminal approvals");
+    expect(body).toContain("No resolved approvals");
   });
 });

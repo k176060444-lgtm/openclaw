@@ -2696,6 +2696,7 @@ export const nl: TranslationMap = {
     columns: {
       resolved: "Afgehandeld",
       kind: "Type",
+      request: "Aanvraag",
       decision: "Beslissing",
       reason: "Reden voor terminalgebruik",
       source: "Bronagent / sessie",

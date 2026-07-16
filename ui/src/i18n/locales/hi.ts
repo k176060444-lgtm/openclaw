@@ -2656,6 +2656,7 @@ export const hi: TranslationMap = {
     columns: {
       resolved: "समाधानित",
       kind: "प्रकार",
+      request: "अनुरोध",
       decision: "निर्णय",
       reason: "टर्मिनल कारण",
       source: "स्रोत एजेंट / सत्र",

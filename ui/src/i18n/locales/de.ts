@@ -2716,6 +2716,7 @@ export const de: TranslationMap = {
     columns: {
       resolved: "Abgeschlossen",
       kind: "Art",
+      request: "Anfrage",
       decision: "Entscheidung",
       reason: "Terminal-Grund",
       source: "Quellagent / Sitzung",

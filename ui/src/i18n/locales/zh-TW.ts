@@ -2633,6 +2633,7 @@ export const zh_TW: TranslationMap = {
     columns: {
       resolved: "已處理",
       kind: "類型",
+      request: "請求",
       decision: "決定",
       reason: "終端機原因",
       source: "來源代理程式／工作階段",

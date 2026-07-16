@@ -93,6 +93,13 @@ function reasonLabel(reason: ApprovalTerminalReason): string {
   return reason satisfies never;
 }
 
+function requestLabel(item: TerminalApprovalSnapshot): string {
+  const presentation = item.presentation;
+  const request =
+    presentation.kind === "exec" ? presentation.commandText : presentation.title;
+  return request || t("approvalHistory.unknown");
+}
+
 function sourceLabel(item: TerminalApprovalSnapshot): string {
   const parts = [item.source?.agentId, item.source?.sessionKey].filter((part): part is string =>
     Boolean(part),
@@ -125,6 +132,15 @@ class ApprovalsPage extends OpenClawLightDomElement {
   private readonly subscriptions = new SubscriptionsController(this).effect(
     () => this.context?.gateway,
     (gateway) => {
+      // A new gateway identity (even with the same client/connection) makes any
+      // in-flight request non-current; reset the loading state and force a fresh
+      // load so the page cannot stay stuck loading against the old source.
+      if (this.gatewaySource !== gateway) {
+        this.requestGeneration += 1;
+        this.loading = false;
+        this.loadingMore = false;
+        this.hasLoaded = false;
+      }
       this.gatewaySource = gateway;
       this.applyGatewaySnapshot(gateway.snapshot);
       return gateway.subscribe((snapshot) => {
@@ -228,6 +244,7 @@ class ApprovalsPage extends OpenClawLightDomElement {
             <tr>
               <th>${t("approvalHistory.columns.resolved")}</th>
               <th>${t("approvalHistory.columns.kind")}</th>
+              <th>${t("approvalHistory.columns.request")}</th>
               <th>${t("approvalHistory.columns.decision")}</th>
               <th>${t("approvalHistory.columns.reason")}</th>
               <th>${t("approvalHistory.columns.source")}</th>
@@ -238,7 +255,7 @@ class ApprovalsPage extends OpenClawLightDomElement {
             ${this.items.length === 0
               ? html`
                   <tr>
-                    <td colspan="6" class="data-table-empty-cell">
+                    <td colspan="7" class="data-table-empty-cell">
                       <div class="data-table-empty-state" role="status" aria-live="polite">
                         ${this.loading
                           ? t("approvalHistory.loading")
@@ -254,6 +271,7 @@ class ApprovalsPage extends OpenClawLightDomElement {
                     <tr>
                       <td>${formatResolvedAt(item.resolvedAtMs)}</td>
                       <td>${kindLabel(item.presentation.kind)}</td>
+                      <td class="mono">${requestLabel(item)}</td>
                       <td>
                         ${statusLabel(item.status)} ·
                         ${decisionLabel("decision" in item ? item.decision : undefined)}

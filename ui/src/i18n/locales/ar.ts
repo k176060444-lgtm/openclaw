@@ -2662,6 +2662,7 @@ export const ar: TranslationMap = {
     columns: {
       resolved: "تم البتّ فيها",
       kind: "النوع",
+      request: "الطلب",
       decision: "القرار",
       reason: "سبب الطرفية",
       source: "الوكيل المصدر / الجلسة",

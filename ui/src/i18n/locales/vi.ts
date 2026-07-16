@@ -2684,6 +2684,7 @@ export const vi: TranslationMap = {
     columns: {
       resolved: "Đã xử lý",
       kind: "Loại",
+      request: "Yêu cầu",
       decision: "Quyết định",
       reason: "Lý do terminal",
       source: "Tác nhân / phiên nguồn",

@@ -2732,6 +2732,7 @@ export const fr: TranslationMap = {
     columns: {
       resolved: "Résolue",
       kind: "Type",
+      request: "Demande",
       decision: "Décision",
       reason: "Motif du terminal",
       source: "Agent source / session",

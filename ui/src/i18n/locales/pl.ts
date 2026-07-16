@@ -2703,6 +2703,7 @@ export const pl: TranslationMap = {
     columns: {
       resolved: "Rozstrzygnięto",
       kind: "Rodzaj",
+      request: "Żądanie",
       decision: "Decyzja",
       reason: "Powód użycia terminala",
       source: "Agent źródłowy / sesja",

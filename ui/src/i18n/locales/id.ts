@@ -2682,6 +2682,7 @@ export const id: TranslationMap = {
     columns: {
       resolved: "Diselesaikan",
       kind: "Jenis",
+      request: "Permintaan",
       decision: "Keputusan",
       reason: "Alasan terminal",
       source: "Agen sumber / sesi",

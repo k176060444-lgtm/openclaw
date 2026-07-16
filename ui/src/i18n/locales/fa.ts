@@ -2679,6 +2679,7 @@ export const fa: TranslationMap = {
     columns: {
       resolved: "رسیدگی‌شده",
       kind: "نوع",
+      request: "درخواست",
       decision: "تصمیم",
       reason: "دلیل ترمینال",
       source: "عامل مبدأ / نشست",

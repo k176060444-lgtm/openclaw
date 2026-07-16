@@ -2702,6 +2702,7 @@ export const tr: TranslationMap = {
     columns: {
       resolved: "Sonuçlandırılma",
       kind: "Tür",
+      request: "İstek",
       decision: "Karar",
       reason: "Terminal nedeni",
       source: "Kaynak aracı / oturum",

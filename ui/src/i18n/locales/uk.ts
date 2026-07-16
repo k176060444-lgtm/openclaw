@@ -2692,6 +2692,7 @@ export const uk: TranslationMap = {
     columns: {
       resolved: "Вирішено",
       kind: "Тип",
+      request: "Запит",
       decision: "Рішення",
       reason: "Причина для термінала",
       source: "Агент-джерело / сеанс",

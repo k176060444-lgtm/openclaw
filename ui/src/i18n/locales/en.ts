@@ -1674,7 +1674,7 @@ export const en: TranslationMap = {
   subtitles: {
     agents: "Workspaces, tools, identities.",
     activity: "Browser-local tool activity summaries.",
-    approvals: "Recent terminal operator approvals.",
+    approvals: "Recent exec, plugin, and system-agent approvals.",
     workboard: "Agent work queue and session handoff.",
     worktrees: "Isolated agent task checkouts and recovery snapshots.",
     channels: "Channels and settings.",
@@ -2627,7 +2627,7 @@ export const en: TranslationMap = {
     loading: "Loading approval history…",
     loadingMore: "Loading…",
     loadMore: "Load more",
-    empty: "No terminal approvals in the rolling 30-day window.",
+    empty: "No resolved approvals in the rolling 30-day window.",
     retention: "Approval history is a rolling 30-day window.",
     offline: "Connect to the gateway to load approval history.",
     invalidResponse: "The gateway returned an invalid approval history response.",
@@ -2636,8 +2636,9 @@ export const en: TranslationMap = {
     columns: {
       resolved: "Resolved",
       kind: "Kind",
+      request: "Request",
       decision: "Decision",
-      reason: "Terminal reason",
+      reason: "Resolution reason",
       source: "Source agent / session",
       resolver: "Resolver",
     },

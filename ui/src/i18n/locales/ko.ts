@@ -2670,6 +2670,7 @@ export const ko: TranslationMap = {
     columns: {
       resolved: "처리 시간",
       kind: "종류",
+      request: "요청",
       decision: "결정",
       reason: "터미널 사유",
       source: "소스 에이전트 / 세션",

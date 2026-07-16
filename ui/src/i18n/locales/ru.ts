@@ -2700,6 +2700,7 @@ export const ru: TranslationMap = {
     columns: {
       resolved: "Разрешено",
       kind: "Тип",
+      request: "Запрос",
       decision: "Решение",
       reason: "Причина для терминала",
       source: "Исходный агент / сеанс",

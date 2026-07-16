@@ -2646,6 +2646,7 @@ export const th: TranslationMap = {
     columns: {
       resolved: "ดำเนินการแล้ว",
       kind: "ประเภท",
+      request: "คำขอ",
       decision: "การตัดสินใจ",
       reason: "เหตุผลของเทอร์มินัล",
       source: "เอเจนต์ / เซสชันต้นทาง",
