@@ -9,6 +9,7 @@ import type { GatewayBrowserClient } from "../api/gateway.ts";
 import type { CronJob, ModelAuthStatusResult } from "../api/types.ts";
 import type { NavigationRouteId } from "../app-navigation.ts";
 import { applicationContext, type ApplicationContext } from "../app/context.ts";
+import type { ExecApprovalRequest } from "../app/exec-approval.ts";
 import { t } from "../i18n/index.ts";
 import { isCronJobActiveFailure } from "../lib/cron-status.ts";
 import { createInitialCronState, loadCronJobsPage } from "../lib/cron/index.ts";
@@ -36,12 +37,16 @@ const VISIBILITY_REFRESH_MIN_AGE_MS = 60_000;
 // slow lifecycle-owned interval keeps the chips from going permanently stale.
 const IDLE_REFRESH_INTERVAL_MS = 10 * 60_000;
 
-type SidebarAttentionItem = {
+type SidebarAttentionAction =
+  | { kind: "navigate"; routeId: NavigationRouteId }
+  | { kind: "openApprovals" };
+
+export type SidebarAttentionItem = {
   kind: SidebarAttentionKind;
   severity: "error" | "warning";
   icon: IconName;
   label: string;
-  routeId: NavigationRouteId;
+  action: SidebarAttentionAction;
   // Sorted identities of the entities behind the chip. A dismissal stores
   // this signature so the chip stays hidden only while the same incident set
   // is affected; any change (new job/provider, new overdue run) resurfaces
@@ -54,13 +59,28 @@ type SidebarAttentionItem = {
   signature: string;
 };
 
-function buildSidebarAttentionItems(params: {
+export function buildSidebarAttentionItems(params: {
   cronJobs: readonly CronJob[];
   modelAuthStatus: ModelAuthStatusResult | null;
+  approvalQueue: readonly ExecApprovalRequest[];
   now: number;
 }): SidebarAttentionItem[] {
   const items: SidebarAttentionItem[] = [];
   const signatureOf = (ids: readonly string[]) => ids.toSorted().join("\n");
+
+  if (params.approvalQueue.length > 0) {
+    const count = params.approvalQueue.length;
+    items.push({
+      kind: "pendingApproval",
+      severity: "warning",
+      icon: "shieldCheck",
+      label: t(count === 1 ? "attention.pendingApproval" : "attention.pendingApprovals", {
+        count: String(count),
+      }),
+      action: { kind: "openApprovals" },
+      signature: signatureOf(params.approvalQueue.map((approval) => approval.id)),
+    });
+  }
 
   const failedCron = params.cronJobs.filter(isCronJobActiveFailure);
   if (failedCron.length > 0) {
@@ -69,7 +89,7 @@ function buildSidebarAttentionItems(params: {
       severity: "error",
       icon: "clock",
       label: t("attention.cronFailed", { count: String(failedCron.length) }),
-      routeId: "cron",
+      action: { kind: "navigate", routeId: "cron" },
       signature: signatureOf(failedCron.map((job) => job.id)),
     });
   }
@@ -85,7 +105,7 @@ function buildSidebarAttentionItems(params: {
       severity: "warning",
       icon: "clock",
       label: t("attention.cronOverdue", { count: String(overdueCron.length) }),
-      routeId: "cron",
+      action: { kind: "navigate", routeId: "cron" },
       // nextRunAtMs is the incident identity: stable while a job stays stuck,
       // new once it runs again and later goes overdue anew — so a fresh
       // overdue episode resurfaces even if no tab observed the recovery.
@@ -105,7 +125,7 @@ function buildSidebarAttentionItems(params: {
       label: t("attention.modelAuthExpired", {
         providers: expired.map((provider) => provider.displayName).join(", "),
       }),
-      routeId: "model-providers",
+      action: { kind: "navigate", routeId: "model-providers" },
       signature: signatureOf(expired.map((provider) => provider.provider)),
     });
   }
@@ -120,7 +140,7 @@ function buildSidebarAttentionItems(params: {
           .map((provider) => `${provider.displayName} (${provider.expiry?.label ?? "soon"})`)
           .join(", "),
       }),
-      routeId: "model-providers",
+      action: { kind: "navigate", routeId: "model-providers" },
       signature: signatureOf(expiring.map((provider) => provider.provider)),
     });
   }
@@ -136,19 +156,25 @@ class SidebarAttention extends OpenClawLightDomContentsElement {
   @state() private dismissed: SidebarAttentionDismissals = {};
 
   @property({ attribute: false }) onNavigate?: (routeId: NavigationRouteId) => void;
+  @property({ attribute: false }) onOpenApprovals?: () => void;
 
   private loadedClient: GatewayBrowserClient | null = null;
   private loadedAtMs = 0;
   private dismissedScope: string | null = null;
   private idleRefreshTimer: ReturnType<typeof globalThis.setInterval> | null = null;
 
-  private readonly subscriptions = new SubscriptionsController(this).effect(
-    () => this.context?.gateway,
-    (gateway) => {
-      this.synchronize(gateway);
-      return gateway.subscribe(() => this.synchronize(gateway));
-    },
-  );
+  private readonly subscriptions = new SubscriptionsController(this)
+    .effect(
+      () => this.context?.gateway,
+      (gateway) => {
+        this.synchronize(gateway);
+        return gateway.subscribe(() => this.synchronize(gateway));
+      },
+    )
+    .watch(
+      () => this.context?.overlays,
+      (overlays, notify) => overlays.subscribe(() => notify()),
+    );
 
   // Cross-tab sync: another tab's dismiss/prune fires "storage" here, so this
   // tab re-reads instead of rendering (or later writing) a stale snapshot.
@@ -253,6 +279,7 @@ class SidebarAttention extends OpenClawLightDomContentsElement {
     const items = buildSidebarAttentionItems({
       cronJobs: this.cronJobs,
       modelAuthStatus: this.modelAuthStatus,
+      approvalQueue: this.context?.overlays.snapshot.approvalQueue ?? [],
       now: Date.now(),
     });
     const stored = loadDismissals(this.dismissedScope);
@@ -270,6 +297,14 @@ class SidebarAttention extends OpenClawLightDomContentsElement {
     this.dismissed = addDismissal(this.dismissedScope, item.kind, item.signature);
   }
 
+  private open(item: SidebarAttentionItem) {
+    if (item.action.kind === "openApprovals") {
+      this.onOpenApprovals?.();
+      return;
+    }
+    this.onNavigate?.(item.action.routeId);
+  }
+
   override render() {
     if (!this.context?.gateway.snapshot.connected) {
       return nothing;
@@ -277,6 +312,7 @@ class SidebarAttention extends OpenClawLightDomContentsElement {
     const items = buildSidebarAttentionItems({
       cronJobs: this.cronJobs,
       modelAuthStatus: this.modelAuthStatus,
+      approvalQueue: this.context.overlays.snapshot.approvalQueue,
       now: Date.now(),
     }).filter((item) => this.dismissed[item.kind] !== item.signature);
     if (items.length === 0) {
@@ -291,7 +327,7 @@ class SidebarAttention extends OpenClawLightDomContentsElement {
                 type="button"
                 class="sidebar-attention__open"
                 title=${item.label}
-                @click=${() => this.onNavigate?.(item.routeId)}
+                @click=${() => this.open(item)}
               >
                 <span class="sidebar-attention__icon" aria-hidden="true">${icons[item.icon]}</span>
                 <span class="sidebar-attention__label">${item.label}</span>

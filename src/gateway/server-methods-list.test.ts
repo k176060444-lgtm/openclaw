@@ -36,16 +36,18 @@ describe("listGatewayMethods", () => {
     expect(listGatewayMethods()).toContain("node.skills.update");
   });
 
-  it("advertises unified approval lookup and resolution", () => {
+  it("advertises unified approval lookup, history, and resolution", () => {
     expect(listGatewayMethods()).toContain("approval.get");
+    expect(listGatewayMethods()).toContain("approval.history");
     expect(listGatewayMethods()).toContain("approval.resolve");
   });
 
-  it("appends memory migration after model probing without shifting older method indices", () => {
-    expect(listGatewayMethods().slice(-3)).toEqual([
+  it("appends new methods without shifting older method indices", () => {
+    expect(listGatewayMethods().slice(-4)).toEqual([
       "models.probe",
       "migrations.memory.plan",
       "migrations.memory.apply",
+      "approval.history",
     ]);
   });
 
@@ -94,7 +96,7 @@ describe("listGatewayMethods", () => {
       "exec.approval.get",
     ]);
     expect(methods).toContain("tts.speak");
-    expect(coreMethods.slice(-10)).toEqual([
+    expect(coreMethods.slice(-11)).toEqual([
       "sessions.catalog.continue",
       "sessions.catalog.archive",
       "approval.get",
@@ -105,6 +107,7 @@ describe("listGatewayMethods", () => {
       "models.probe",
       "migrations.memory.plan",
       "migrations.memory.apply",
+      "approval.history",
     ]);
     expect(methods.indexOf("approval.get")).toBeGreaterThan(methods.indexOf("tts.speak"));
     expect(methods.indexOf("approval.resolve")).toBe(methods.indexOf("approval.get") + 1);
