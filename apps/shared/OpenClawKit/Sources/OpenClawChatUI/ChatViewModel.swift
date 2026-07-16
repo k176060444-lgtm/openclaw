@@ -66,7 +66,7 @@ public final class OpenClawChatViewModel {
     }
 
     public private(set) var pendingRunCount: Int = 0
-    private(set) var hasActiveSessionRunWithoutChatSnapshot = false
+    var hasActiveSessionRunWithoutChatSnapshot = false
 
     public private(set) var sessionKey: String {
         didSet { syncContextUsageFraction() }
@@ -192,7 +192,7 @@ public final class OpenClawChatViewModel {
     var nextPendingRunOwnerArmID: UInt64 = 0
     var pendingRunOwnerArmIDs: [String: UInt64] = [:]
     @ObservationIgnored
-    private nonisolated(unsafe) var activeSessionRunIndicatorTimeoutTask: Task<Void, Never>?
+    nonisolated(unsafe) var activeSessionRunIndicatorTimeoutTask: Task<Void, Never>?
     var pendingRunWaitTimeoutMs: UInt64 = 120_000
     var pendingRunUnavailableRetryMs: UInt64 = 30000
     var pendingRunTerminalRetryMs: UInt64 = 2000
@@ -681,40 +681,6 @@ extension OpenClawChatViewModel {
         guard self.streamingAssistantText != text else { return }
         self.streamingAssistantText = text
         self.markTimelineChanged()
-    }
-
-    func updateActiveSessionRunWithoutChatSnapshot(_ active: Bool) {
-        guard self.hasActiveSessionRunWithoutChatSnapshot != active else { return }
-        self.hasActiveSessionRunWithoutChatSnapshot = active
-        if active {
-            self.armActiveSessionRunIndicatorTimeout()
-        } else {
-            self.activeSessionRunIndicatorTimeoutTask?.cancel()
-            self.activeSessionRunIndicatorTimeoutTask = nil
-        }
-        self.markTimelineChanged()
-    }
-
-    private func armActiveSessionRunIndicatorTimeout() {
-        self.activeSessionRunIndicatorTimeoutTask?.cancel()
-        let timeoutMs = self.pendingRunWaitTimeoutMs
-        self.activeSessionRunIndicatorTimeoutTask = Task { [weak self] in
-            do {
-                try await Task.sleep(nanoseconds: timeoutMs * 1_000_000)
-            } catch {
-                return
-            }
-            await MainActor.run {
-                self?.updateActiveSessionRunWithoutChatSnapshot(false)
-            }
-        }
-    }
-
-    func clearActiveSessionRunIndicatorIfLatestUserAnswered() {
-        guard self.hasActiveSessionRunWithoutChatSnapshot,
-              !Self.hasUnansweredLatestUser(in: self.messages)
-        else { return }
-        self.updateActiveSessionRunWithoutChatSnapshot(false)
     }
 
     func logDiagnostic(_ message: String) {
