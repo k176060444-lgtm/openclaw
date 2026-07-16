@@ -5,30 +5,26 @@ private struct ChatPlanPillSurface: ViewModifier {
 
     func body(content: Content) -> some View {
         #if os(macOS)
+        content
+            .background(
+                RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous)
+                    .fill(OpenClawChatTheme.subtleCard))
+            .overlay(
+                RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous)
+                    .strokeBorder(OpenClawChatTheme.composerBorder, lineWidth: 1))
+        #else
+        if #available(iOS 26.0, *) {
+            content
+                .glassEffect(.regular, in: .rect(cornerRadius: self.cornerRadius))
+        } else {
             content
                 .background(
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .fill(OpenClawChatTheme.subtleCard)
-                )
+                    .regularMaterial,
+                    in: RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous))
                 .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .strokeBorder(OpenClawChatTheme.composerBorder, lineWidth: 1)
-                )
-        #else
-            if #available(iOS 26.0, *) {
-                content
-                    .glassEffect(.regular, in: .rect(cornerRadius: cornerRadius))
-            } else {
-                content
-                    .background(
-                        .regularMaterial,
-                        in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .strokeBorder(OpenClawChatTheme.composerBorder, lineWidth: 1)
-                    )
-            }
+                    RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous)
+                        .strokeBorder(OpenClawChatTheme.composerBorder, lineWidth: 1))
+        }
         #endif
     }
 }
@@ -40,13 +36,13 @@ struct ChatPlanPill: View {
     @State private var isExpanded = false
 
     private var completedCount: Int {
-        steps.count { $0.status == .completed }
+        self.steps.count { $0.status == .completed }
     }
 
     private var currentStep: OpenClawChatPlanStep? {
-        steps.first { $0.status == .inProgress }
-            ?? steps.last { $0.status == .completed }
-            ?? steps.first
+        self.steps.first { $0.status == .inProgress }
+            ?? self.steps.last { $0.status == .completed }
+            ?? self.steps.first
     }
 
     var body: some View {
@@ -88,15 +84,15 @@ struct ChatPlanPill: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .modifier(ChatPlanPillSurface(cornerRadius: isExpanded ? 16 : 18))
+        .modifier(ChatPlanPillSurface(cornerRadius: self.isExpanded ? 16 : 18))
         .foregroundStyle(OpenClawChatTheme.assistantText)
     }
 
     private var summaryAccessibilityLabel: String {
         guard let currentStep else {
-            return "Plan, \(completedCount) of \(steps.count) steps done"
+            return "Plan, \(self.completedCount) of \(self.steps.count) steps done"
         }
-        return "Plan, \(completedCount) of \(steps.count) steps done, "
+        return "Plan, \(self.completedCount) of \(self.steps.count) steps done, "
             + "\(Self.accessibilityLabel(for: currentStep.status)): \(currentStep.step)"
     }
 
@@ -133,8 +129,7 @@ struct ChatPlanPill: View {
                 .foregroundStyle(
                     step.status == .pending
                         ? OpenClawChatTheme.muted
-                        : OpenClawChatTheme.assistantText
-                )
+                        : OpenClawChatTheme.assistantText)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .accessibilityElement(children: .ignore)
@@ -157,7 +152,7 @@ struct ChatPlanPill: View {
     }
 
     private static func stepAccessibilityLabel(_ step: OpenClawChatPlanStep) -> String {
-        "\(accessibilityLabel(for: step.status)), \(step.step)"
+        "\(self.accessibilityLabel(for: step.status)), \(step.step)"
     }
 
     private static func accessibilityLabel(for status: OpenClawChatPlanStep.Status) -> String {

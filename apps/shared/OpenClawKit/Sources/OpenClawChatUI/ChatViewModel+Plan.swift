@@ -6,7 +6,7 @@ extension OpenClawChatViewModel {
     func applyPlanSnapshot(runId: String, data: [String: AnyCodable]) {
         let steps = OpenClawChatPlanStep.parseSteps(data["steps"])
         guard !steps.isEmpty else {
-            clearPlan(for: runId)
+            self.clearPlan(for: runId)
             return
         }
         let explanation = (data["explanation"]?.value as? String)?
