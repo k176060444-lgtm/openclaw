@@ -1685,6 +1685,7 @@ export const nl: TranslationMap = {
   tabs: {
     agents: "Agents",
     activity: "Activiteit",
+    approvals: "Goedkeuringen",
     workboard: "Werkbord",
     worktrees: "Worktrees",
     channels: "Kanalen",
@@ -1716,6 +1717,7 @@ export const nl: TranslationMap = {
   subtitles: {
     agents: "Werkruimten, tools, identiteiten.",
     activity: "Browserlokale samenvattingen van toolactiviteit.",
+    approvals: "Recente goedkeuringen van terminaloperators.",
     workboard: "Werkwachtrij voor agents en sessieoverdracht.",
     worktrees: "Geïsoleerde agenttaak-checkouts en herstelsnapshots.",
     channels: "Kanalen en instellingen.",
@@ -2675,6 +2677,55 @@ export const nl: TranslationMap = {
     cronOverdue: "{count} cronjob(s) te laat",
     modelAuthExpired: "Modelauthenticatie verlopen: {providers}",
     modelAuthExpiring: "Modelauthenticatie verloopt binnenkort: {providers}",
+    pendingApproval: "{count} wachtende goedkeuring",
+    pendingApprovals: "{count} wachtende goedkeuringen",
+  },
+  approvalHistory: {
+    description:
+      "Door deze Gateway vastgelegde goedkeuringen voor terminaluitvoering, plug-ins en systeemagents, nieuwste eerst.",
+    loading: "Goedkeuringsgeschiedenis laden…",
+    loadingMore: "Laden…",
+    loadMore: "Meer laden",
+    empty: "Geen terminalgoedkeuringen in de afgelopen 30 dagen.",
+    retention: "De goedkeuringsgeschiedenis omvat een doorlopende periode van 30 dagen.",
+    offline: "Maak verbinding met de Gateway om de goedkeuringsgeschiedenis te laden.",
+    invalidResponse:
+      "De Gateway heeft een ongeldig antwoord voor de goedkeuringsgeschiedenis geretourneerd.",
+    unknown: "Onbekend",
+    notApplicable: "N.v.t.",
+    columns: {
+      resolved: "Afgehandeld",
+      kind: "Type",
+      decision: "Beslissing",
+      reason: "Reden voor terminalgebruik",
+      source: "Bronagent / sessie",
+      resolver: "Afhandelaar",
+    },
+    kinds: {
+      exec: "Uitvoering",
+      plugin: "Plug-in",
+      systemAgent: "Systeemagent",
+    },
+    statuses: {
+      allowed: "Toegestaan",
+      denied: "Geweigerd",
+      expired: "Verlopen",
+      cancelled: "Geannuleerd",
+    },
+    decisions: {
+      allowOnce: "Eenmalig toestaan",
+      allowAlways: "Altijd toestaan",
+      deny: "Weigeren",
+    },
+    reasons: {
+      user: "Beslissing van gebruiker",
+      timeout: "Time-out",
+      malformedVerdict: "Ongeldig oordeel",
+      noRoute: "Geen route",
+      runAborted: "Uitvoering afgebroken",
+      gatewayRestart: "Gateway opnieuw gestart",
+      storageCorrupt: "Opslag beschadigd",
+    },
   },
   palette: {
     placeholder: "Chats en opdrachten zoeken…",
