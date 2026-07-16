@@ -31291,128 +31291,128 @@
         },
         "zh-CN": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "收起计划"
           }
         },
         "zh-TW": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "收合計畫"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Recolher plano"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Plan einklappen"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Contraer el plan"
           }
         },
         "ja-JP": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "計画を折りたたむ"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "계획 접기"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Réduire le plan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "योजना संक्षिप्त करें"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "طي الخطة"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Comprimi il piano"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Planı daralt"
           }
         },
         "uk": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Згорнути план"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Ciutkan rencana"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Zwiń plan"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "ยุบแผน"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Thu gọn kế hoạch"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Plan inklappen"
           }
         },
         "fa": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "جمع‌کردن برنامه"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Свернуть план"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "new",
-            "value": "Collapse plan"
+            "state": "translated",
+            "value": "Dölj plan"
           }
         }
       }
@@ -62027,128 +62027,128 @@
         },
         "zh-CN": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "展开计划"
           }
         },
         "zh-TW": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "展開計畫"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Expandir plano"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Plan ausklappen"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Expandir el plan"
           }
         },
         "ja-JP": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "計画を展開"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "계획 펼치기"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Développer le plan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "योजना विस्तृत करें"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "توسيع الخطة"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Espandi il piano"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Planı genişlet"
           }
         },
         "uk": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Розгорнути план"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Luaskan rencana"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Rozwiń plan"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "ขยายแผน"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Mở rộng kế hoạch"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Plan uitklappen"
           }
         },
         "fa": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "بازکردن برنامه"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Развернуть план"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "new",
-            "value": "Expand plan"
+            "state": "translated",
+            "value": "Visa plan"
           }
         }
       }

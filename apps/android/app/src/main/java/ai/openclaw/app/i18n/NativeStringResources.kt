@@ -13,6 +13,7 @@ internal val nativeStringResourceIds: Map<String, Int> =
     " · Talk: Speaking" to R.string.native_214d4932fc767e8f,
     "\$agentName is working" to R.string.native_844e5b02f3ef05ca,
     "\$applied applied" to R.string.native_82990a093599a9bb,
+    "\$completedCount/\${steps.size}" to R.string.native_c0401b1b10c85562,
     "\$connected/\${summary.channels.size} connected" to R.string.native_99f818dd50c0dd7c,
     "\$context context" to R.string.native_c553dc8d97d06891,
     "\$contextLabel · \${contextMeterThinkingLabel(thinkingLevel)}" to R.string.native_0562082491cc26a2,
