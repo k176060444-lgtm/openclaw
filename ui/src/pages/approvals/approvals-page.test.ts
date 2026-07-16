@@ -89,4 +89,24 @@ describe("ApprovalsPage", () => {
     });
     expect(page.querySelectorAll(".approval-history-table tbody tr")).toHaveLength(2);
   });
+
+  it("does not claim an empty history when the load failed", async () => {
+    const request = vi.fn().mockRejectedValueOnce(new Error("boom"));
+    const page = createPage(request as GatewayBrowserClient["request"]);
+
+    await settle(page);
+
+    const body = page.querySelector(".approval-history-table tbody")?.textContent ?? "";
+    expect(body).not.toContain("No terminal approvals");
+  });
+
+  it("shows the empty message only after a successful zero-row load", async () => {
+    const request = vi.fn().mockResolvedValueOnce({ items: [] });
+    const page = createPage(request as GatewayBrowserClient["request"]);
+
+    await settle(page);
+
+    const body = page.querySelector(".approval-history-table tbody")?.textContent ?? "";
+    expect(body).toContain("No terminal approvals");
+  });
 });

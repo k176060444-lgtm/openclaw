@@ -240,7 +240,11 @@ class ApprovalsPage extends OpenClawLightDomElement {
                   <tr>
                     <td colspan="6" class="data-table-empty-cell">
                       <div class="data-table-empty-state" role="status" aria-live="polite">
-                        ${this.loading ? t("approvalHistory.loading") : t("approvalHistory.empty")}
+                        ${this.loading
+                          ? t("approvalHistory.loading")
+                          : this.error || !this.hasLoaded
+                            ? t("approvalHistory.unknown")
+                            : t("approvalHistory.empty")}
                       </div>
                     </td>
                   </tr>
