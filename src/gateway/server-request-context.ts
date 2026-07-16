@@ -90,9 +90,13 @@ type GatewayRequestContextParams = {
   unavailableGatewayMethods: ReadonlySet<string>;
 };
 
+export type GatewayRequestContextWithClientLookup = GatewayRequestContext & {
+  getClientConnIds?: (filter?: (client: GatewayClient) => boolean) => ReadonlySet<string>;
+};
+
 export function createGatewayRequestContext(
   params: GatewayRequestContextParams,
-): GatewayRequestContext {
+): GatewayRequestContextWithClientLookup {
   const hasApprovalScope = (gatewayClient: GatewayClient): boolean => {
     const scopes = Array.isArray(gatewayClient.connect.scopes) ? gatewayClient.connect.scopes : [];
     return scopes.includes("operator.admin") || scopes.includes("operator.approvals");
@@ -160,6 +164,19 @@ export function createGatewayRequestContext(
           continue;
         }
         if (opts.filter && !opts.filter(gatewayClient, opts.record)) {
+          continue;
+        }
+        connIds.add(gatewayClient.connId);
+      }
+      return connIds;
+    },
+    getClientConnIds: (filter) => {
+      const connIds = new Set<string>();
+      for (const gatewayClient of params.clients) {
+        if (!gatewayClient.connId || gatewayClient.invalidated) {
+          continue;
+        }
+        if (filter && !filter(gatewayClient)) {
           continue;
         }
         connIds.add(gatewayClient.connId);
