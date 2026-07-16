@@ -76,6 +76,9 @@ public final class OpenClawChatViewModel {
     public private(set) var streamingAssistantText: String?
 
     public private(set) var pendingToolCalls: [OpenClawChatPendingToolCall] = []
+    public private(set) var planSteps: [OpenClawChatPlanStep] = []
+    public private(set) var planExplanation: String?
+    private var planRunId: String?
 
     private(set) var timelineRevision: UInt64 = 0
     /// Setter is module-internal for the transcript-cache extension only.
@@ -678,6 +681,36 @@ extension OpenClawChatViewModel {
         self.markTimelineChanged()
     }
 
+    func applyPlanSnapshot(runId: String, data: [String: AnyCodable]) {
+        let steps = OpenClawChatPlanStep.parseSteps(data["steps"])
+        guard !steps.isEmpty else {
+            self.clearPlan(for: runId)
+            return
+        }
+        let explanation = (data["explanation"]?.value as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let normalizedExplanation = explanation?.isEmpty == false ? explanation : nil
+        guard self.planRunId != runId ||
+            self.planSteps != steps ||
+            self.planExplanation != normalizedExplanation
+        else {
+            return
+        }
+        self.planRunId = runId
+        self.planSteps = steps
+        self.planExplanation = normalizedExplanation
+        self.markTimelineChanged()
+    }
+
+    func clearPlan(for runId: String? = nil) {
+        if let runId, self.planRunId != runId { return }
+        guard self.planRunId != nil || !self.planSteps.isEmpty || self.planExplanation != nil else { return }
+        self.planRunId = nil
+        self.planSteps = []
+        self.planExplanation = nil
+        self.markTimelineChanged()
+    }
+
     func updateActiveSessionRunWithoutChatSnapshot(_ active: Bool) {
         guard self.hasActiveSessionRunWithoutChatSnapshot != active else { return }
         self.hasActiveSessionRunWithoutChatSnapshot = active
@@ -923,6 +956,7 @@ extension OpenClawChatViewModel {
             self.pendingRuns.insert(runId)
             self.pendingToolCallsById = [:]
             self.updateStreamingAssistantText(nil)
+            self.clearPlan()
         }
         if self.runMessageScopesByRunID[runId] == nil {
             self.runMessageScopesByRunID[runId] = currentRunMessageScope()
@@ -950,6 +984,7 @@ extension OpenClawChatViewModel {
         self.clearPendingRuns(reason: nil)
         self.pendingToolCallsById = [:]
         self.updateStreamingAssistantText(nil)
+        self.clearPlan()
         self.updateActiveSessionRunWithoutChatSnapshot(false)
         self.sessionId = nil
         let historyRequest = self.beginHistoryRequest(captureLatestUserTurn: requestedSessionKey == nil)
@@ -1040,6 +1075,7 @@ extension OpenClawChatViewModel {
             {
                 self.pendingToolCallsById = [:]
                 self.updateStreamingAssistantText(nil)
+                self.clearPlan()
                 // Keep a known run ID authoritative so its stream and terminal
                 // events still route here. Synthesize activity only after the
                 // client has no run identity to preserve.
@@ -1051,6 +1087,7 @@ extension OpenClawChatViewModel {
                     hapticEvent: self.assistantHapticEventAfterLatestUser())
                 self.pendingToolCallsById = [:]
                 self.updateStreamingAssistantText(nil)
+                self.clearPlan()
             }
         }
         await pollHealthIfNeeded(force: true, sessionSnapshot: context.session)
@@ -1280,6 +1317,7 @@ extension OpenClawChatViewModel {
         self.sessionId = nil
         self.pendingToolCallsById = [:]
         self.updateStreamingAssistantText(nil)
+        self.clearPlan()
         self.updateActiveSessionRunWithoutChatSnapshot(false)
         self.resetSlashCommandCatalog()
         self.clearPendingRuns(reason: nil)

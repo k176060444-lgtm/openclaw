@@ -1973,6 +1973,7 @@ class ChatPane extends OpenClawLightDomElement {
       runStatus: state.chatRunStatus,
       compactionStatus: state.compactionStatus,
       fallbackStatus: state.fallbackStatus,
+      planStatus: state.planStatus,
       messages: catalogKey ? this.catalogMessages : state.chatMessages,
       historyPagination:
         catalogKey || state.chatHistoryPagination?.hasMore || this.loadingOlder
